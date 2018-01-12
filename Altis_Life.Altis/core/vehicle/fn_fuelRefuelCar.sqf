@@ -61,7 +61,7 @@ if ((BANK - (_fueltoput * life_fuelPrices))> 0)then {
             [_car,_cP * _setfuel] remoteExecCall ["life_fnc_setFuel",_car];
         };
     };
-    private _diff = ceil(_totalcost - (100 * _stepcost))); //diffenrence between paid money and calculated price
+    private _diff = ceil(_totalcost - (100 * _stepcost)); //diffenrence between paid money and calculated price
     BANK = BANK - _diff; //subtract the rest of the price
     "progressBar" cutText ["","PLAIN"];
     if (_car distance player > 10 || {!(isNull objectParent player)}) then {
