@@ -27,7 +27,7 @@ if (_car isKindOf "Truck_02_base_F") then {_fueltank = 175}; //vehicles of type 
 private _fueltoput= ((SliderPosition 20901) - (floor(_fuelnow * _fueltank)));
 private _setfuel = _fuelnow + (_fueltoput/_fueltank);
 private _timer = ((_fueltoput * .25)/100);
-if (_car distance player > 10 && !(isNull objectParent player)) exitWith {
+if (_car distance player > 10 && {!(isNull objectParent player)}) exitWith {
     hint localize "STR_Distance_Vehicle_Pump";
     vehiclefuelList = [];
     life_action_inUse = false;
