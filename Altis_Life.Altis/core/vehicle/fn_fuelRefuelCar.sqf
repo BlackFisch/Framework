@@ -46,6 +46,7 @@ if ((BANK - (_fueltoput * life_fuelPrices))> 0)then {
     _progress progressSetPosition 0.01;
     private _cP = 0.01;
     private _totalcost = _fueltoput * life_fuelPrices;
+    private _stepcost = round(0.01 * _totalcost);
     for "_i" from 0 to 1 step 0 do {
         uiSleep  _timer;
         _cP = _cP + 0.01;
@@ -54,14 +55,14 @@ if ((BANK - (_fueltoput * life_fuelPrices))> 0)then {
         if (_cP >= 1) exitWith {};
         if (player distance _car > 10) exitWith {};
         if !(isNull objectParent player) exitWith {};
-        if !((BANK - _diff) > 0) exitWith {};
-        BANK = BANK - _diff;
+        if !((BANK - _stepcost) > 0) exitWith {};
+        BANK = BANK - _stepcost;
         if (((_cP * 100) mod 10) isEqualTo 0) then {
             [_car,_cP * _setfuel] remoteExecCall ["life_fnc_setFuel",_car];
         };
     };
     private _diff = round(_totalcost - (100 * (round(0.01 * _totalcost)))); //diffenrence between paid money and calculated price
-    BANK = BANK - (_totalcost - _paid); //subtract the rest of the price
+    BANK = BANK - _diff; //subtract the rest of the price
     "progressBar" cutText ["","PLAIN"];
     if (_car distance player > 10 || {!(isNull objectParent player)}) then {
         hint localize "STR_Distance_Vehicle_Pump";
